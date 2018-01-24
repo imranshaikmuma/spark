@@ -1,0 +1,101 @@
+spark and python for big data with pyspark:
+
+spark in context of bigdata:
+***hdfs block size is 128MB by default
+spark is created at AMPlab at UC Berkeley
+
+spark can be thought of as a flexible alternative to mapreduce
+spark can use data stored in formats: cassandra, aws s3, hdfs and more
+
+spark vs mapreduce:
+mapreduce requires files to be stored in hdfs but spark does not
+spark can perform opertions upto 100x faster than mapreduce by the following approach:
+map reduce writes data to disk after each map and reduce step but spark keeps most of the data in memory and if memory is full then it goes to disk
+
+spark RDD:
+(resilient distributed dataset)
+rdd has 4 features:
+	distributed collection of data
+	fault tolerant
+	parallel operation - partioned
+	ability to use many data sources not just HDFS 
+	
+driver program(spark context) ---> cluster manager --> (worker nodes)(worker nodes)
+
+rdd are immutable,lazily evaluated and cacheable
+there are two types of spark operations:
+	transformations(method)
+	actions(acutal task)
+	
+
+***spark has RDD syntax and Dataframe Syntax( from spark 2.0, it is moving towards dataframe syntax which is easy to work with)
+
+spark dataframes:
+standard way of using machine learning capabilities
+
+documentation: 
+http://spark.apache.org/
+
+few methods of setting up spark are:
+virtual box(ubuntu+spark+python)
+amazon ec2
+databricks notebook system
+AWS EMR notebook(not free)(EMR-elastic mapreduce)
+
+installation steps on ubuntu:
+	sudo apt-get install python3-pip
+	sudo pip3 install jupyter
+	sudo apt-get install default-jre
+	sudo apt-get install scala
+	sudo pip3 install py4j (connects java and scala with python)
+
+	spark and hadoop:
+		spark.apache.org(download spark)
+		sudo tar -zxvf spark.....tgz(unzip)
+		export SPARK_HOME='home/ubuntu/spark-2.2.1-bin-hadoop2.7(to tell python where to find spark)
+		
+		export PATH=$SPARK_HOME:$PATH(where to find path)
+		export PYTHONPATH=$SPARK_HOME/python:$PYTHONPATH
+		
+		export PYSPARK_DRIVER_PYTHON="jupyter"(to make spark up and running in jupyter)
+		export PYSPARK_DRIVER_PYTHON_OPTS="notebook"
+		export PYSPARK_PYTHON=python3(to access spark in  python3)
+		
+		to resolve permission errors with notebook accessing spark:
+		sudo chmod 777 spark-2.2.1-bin-hadoop2.7(do this for python folder and pyspark folder too)
+		
+		cd to spark---/python and open python3 and check if pyspark is installed by importing pyspark
+		
+		to access pyspark from any directory not just(spark---/python):
+			pip3 install findspark
+		findspark will connect to spark from any directory
+		get the directory of spark(/home/ubuntu/spark-2....) and call findspark using the path of directory
+			import findspark	
+			findspark.init('/home/ubuntu/spark......)
+			
+			then...
+			import pyspark(it works now)
+		
+installation on databricks:
+	databricks provides clusters that run on top of AWS where notebook system already set up 
+		
+	databricks has its own storage format DBFS(data bricks file system)
+	
+	databricks.com/try-databricks(community edition)
+	
+	we can create a cluster which when created will be on AWS and we can create tables from sources like excel,amazon S3,DBFS, amazon redshift, amazon kinesis, JDBC, Cassandra, Kafka, Redis, Elasticsearch
+
+installation on AWS Elastic mapreduce:
+	it has a cluster with a notebook interface
+	Zeppelin notebook on amazon EMR:
+		Zeppelin notebook is similar to jupyter notebook but with more capabilities(visualizations, multiple language suppport, multi user etc) suiting big data(spark,hadoop)
+		
+		zeppelin.apache.org
+		
+jupyter notebook notes/shortcuts:
+	shift+tab(for documentation on any function)
+	
+	
+		
+		
+
